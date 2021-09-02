@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>{% block title %}Home {% endblock %}</title>
+</head>
+<body>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'js/style.css' %}">
+    <div class="container-fluid p-0" >
+        <div class="row">
+            <div class="col-6">
+                <nav  class="navbar navbar-expand-lg navbar-dark p-2" >
+                    <a class="navbar-brand fw-bolder" href="/wall">Wall</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link fw-bolder" href="/wall">Wall</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link fw-bolder text-warning" href="/logout">Logout</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                    
+                    <div class="offset-4 col-2 p-2 text-center">
+                        <h6 class="mt-2 text-white align-items-center fw-bolder me-2" >Hello,  {{request.session.user.name}}</h6>
+                    </div>  
+                </div>
+                </nav>
+            </div>
+        </div>
+    </div> 
+    
+    {% block content %}
+        
+        
+    {% endblock %}
+    </div>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
+
+        $('document').ready(function(){
+            {% if messages%}
+                {% for message in messages %}
+                    toastr.{{message.tags}}("{{message}}");
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+    {% block scripts %}
+        
+        
+    {% endblock %}
+</body>
+</html>
