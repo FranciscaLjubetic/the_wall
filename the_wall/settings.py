@@ -30,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 if env == 'prod':
-    ALLOWED_HOSTS = '137.184.84.67'
+    ALLOWED_HOSTS = ['137.184.84.67']
 
 
 # Application definition
