@@ -1,6 +1,6 @@
 import bcrypt
 from django.shortcuts import render, redirect, HttpResponse
-from .models import textmessages, Users, comments
+from main.models import textmessages, comments, Users
 from django.contrib import messages
 from django.db import IntegrityError
 from .decorators import *
@@ -129,31 +129,35 @@ def comment(request):
 
 @login_protect
 def delete(request, nam):
+    # si haces click en borrar mensaje, borrar mensaje y posts. si haces click en borrar post, borrar post
     msn= textmessages.objects.get(id= int(nam))
-    msn.delete()
+    msn.delete()  
     return redirect('/wall')
 
 @login_protect
-def edit(request, nom):
-    edit_msn = textmessages.objects.get(id= int(nom))
-    comentarios = comments.objects.all()
-    
-    if request.method== 'GET':
-        # yo no tuve ese problema, pero en caso de que me de jugo la fecha hago lo siguiente:
-        #time_str=edit_show.release_date.strftime('%Y-%m-%d')
-        context = {
-            'edit_msn': edit_msn,
-            #'time_str':time_str,
-            'Comments': comentarios
-        }
-        return render(request,'shows_edit.html',  context)
-    
+def deletecomment(request, nom):
+    # si haces click en borrar mensaje, borrar mensaje y posts. si haces click en borrar post, borrar post
+    com = comments.objects.get(id= int(nom))
+    com.delete()
+    return redirect('/wall')
+
+@login_protect
+def edit(request, nam):
+    editmsn = textmessages.objects.get(id= nam) 
+    if 'new' in request.POST:
+        new = request.POST['new']
     else:
-        fresh_msn = request.POST['new_msj']
-        edit_msn.message = fresh_msn
-        #aqui no hago create, porque lo que necesito es sobreescribir algo que ya existe
-        edit_msn.save()
-        messages.success(request, 'Message successfully updated')
+        new = editmsn.message
         
-        return redirect('/wall')
+    editmsn.message = new
+    #aqui no hago create, porque lo que necesito es sobreescribir algo que ya existe
+    try:
+        editmsn.save()
+        messages.success(request, 'Message successfully updated')
+                
+    except IntegrityError:
+        messages.error('This message is just the same')
+        return redirect(f'/edit/{nam}')
+        
+    return redirect('/wall')
 

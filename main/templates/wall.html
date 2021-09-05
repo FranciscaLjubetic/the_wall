@@ -4,7 +4,7 @@
 
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<div class="container p-1" style="min-height: 600px;">
+<div class="container p-1" style="min-height: 700px;">
     <div id="furm" class="offset-1 col-10 border mt-1" style="border-radius: 15px;">
             <form method="POST" action="/makepost">
                 {% csrf_token %}
@@ -15,58 +15,87 @@
                 </div>
                 <div class="row ps-2">
                     <div class="offset-1 col-10">
-                        <h6 class="ms-2 mb-1 fw-bolder">Make a Post</h6>
+                        <h6 class="ms-0 mb-1 fw-bolder">Make a Post</h6>
                         <textarea id="mensaje" name="mensaje" cols="55" rows="2" class="form-control input-index mx-auto">
                         </textarea>
-                        <button type="submit" class="btn text-white fw-bolder bg-warning m-1 ps-3 pe-3 pt-1 pb-1" required>post</button>
+                        <button type="submit" class="btn text-white fw-bolder bg-warning border border-white mt-1 ms-0 ps-3 pe-3 pt-1 pb-1" required>post</button>
                     </div>
                 </div>    
             </form>
             <div class="offset-1 col-10 mt-4 mb-4" style="min-height: 100px; border-radius: 8px;">
-                <h6 class="ms-3 mb-1 fw-bolder">Recent Posts</h6>
+                <h6 class="ms-2 mb-0 fw-bolder p-0">Recent Posts</h6>
                 <div class="mb-4 p-2" >
-                    <div class="border border-muted" style="overflow-y: scroll; height: 300px; border-radius: 5px;">    
+                    <div class="border border-muted" style="overflow-y: scroll; height: 300px; border-radius: 7px;">    
                         {% for msn in Messages %}
-                            <div id="cajacomments" class="border bg-white mb-4">
-                                <div class="row text-dark m-1">
-                                    <p><img src="{{msn.user.avatar}}" alt=""class="me-2" style="display: inline;"><span class="text-success fw-bolder"> {{msn.user.name}}, {{msn.user.created_at}} has said:</span></p>
-                                    <p>{{msn.message}}</p>
-                                    <p class="ms-4"> <a href="#"><img src="https://cdn.icon-icons.com/icons2/402/PNG/512/edit-validated_40458.png" alt=""></a>   <a class="ms-2"href="/delete/{{msn.id}}"><img src="https://cdn.icon-icons.com/icons2/17/PNG/256/recyclebinfilled_recycling_full_garbage_1993.png" alt="" ></a> </p>
-                                </div>
-                                <div class="row ps-3 pe-3">
-                                    <form action="/comment" method="POST">
-                                        {% csrf_token %}
-                                        <input id="message_id" name="message_id" type="hidden" value="{{msn.id}}">
-                                        <textarea id="coment" name="coment" cols="40" rows="1" class="form-control input-index mx-auto">
-                                        </textarea>
-                                        <button type="submit" class="btn text-white bg-warning fw-bolder mt-1 ps-3 pe-3 pt-1 pb-1 pb-0" required>comment</button>
-                                    </form>
-                                </div>
-                                <div>
-                                    <ul> 
-                                        {% for com in msn.comments.all %}
-                                        <li>
-                                            <span class="text-success">{{com.user.name}}, {{com.user.created_at}}: {{com.comment}}</span></p>
-                                        </li>
-                                        {% empty%}
-                                        <li>no commments yet</li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                        <div id="cajacomments" class="border bg-white mb-4">
+                            <div class="row text-dark m-3">
+                                <p><img src="{{msn.user.avatar}}" alt=""class="me-4" style="display: inline;"><span class="text-dark fw-bolder"> {{msn.user.name}}, {{msn.user.created_at}} said:</span></p>
+                                <p  id="ocultar" class="pb-0 mb-0">{{msn.message}}</p>
+                                <form action="/edit/{{msn.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <textarea name="new" cols="40" rows="1"  style="display: none" class="mostrar border border-warning form-control input-index mx-auto">{{msn.message}}</textarea>
+                                    <input type="submit" class="mostrar btn text-warning bg-white border border-warning fw-bolder mt-1 ps-3 pe-3 pt-1 pb-1 pb-0" style="display: none" required>
+                                </form>
+                                <p class="me-2 mt-0"> 
+                                    <a  id="editar" class="me-2" href="/edit/{{msn.id}}">&#128397</a> 
+                                    <a class="deletebtn" href="/delete/{{msn.id}}">&#128701;</a>
+                                </p>
                             </div>
-                        {% endfor %}
-                    </div>
+                            <div class="row ps-3 pe-3">
+                                <form action="/comment" method="POST">
+                                    <h7 class="mb-0 p-0 text-secondary"> Reply</h7>
+                                    {% csrf_token %}
+                                    <input id="message_id" name="message_id" type="hidden" value="{{msn.id}}">
+                                    <textarea id="coment" name="coment" cols="40" rows="1" class="form-control input-index mx-auto">
+                                    </textarea>
+                                    <button type="submit" class="btn text-warning bg-white border border-warning fw-bolder mt-1 ps-3 pe-3 pt-1 pb-1 pb-0" required>post</button>
+                                </form>
+                            </div>
+                            <div class="ms-1  mt-2">
+                                <ul> 
+                                    {% for com in msn.comments.all %}
+                                    <li>
+                                        <span class="text-secondary fw-bold"><img src="{{msn.user.avatar}}" alt=""class="me-2" style="display: inline;">{{com.user.name}}, {{com.user.created_at}}: </span> <span> {{com.comment}}</span>
+                                        <p class="ms-auto pt-0"><a class="deletebtn" href="/deletecomment/{{com.id}}">&#128701;</a></p>
+                                    </li>
+                                    {% empty%}
+                                    <li>no comments yet</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
+        </div>
     </div>
 </div>
-<!--<script>
-    $("#network_input").on("change", function () {
-        if ($(this).val() === "other") {
-            $("#newNetwork").removeClass("d-none");
-        } else {
-            $("#newNetwork").addClass("d-none");
-        }
-    });
-</script>-->
+
 {% endblock %}
+{% block scripts %}
+<script>
+    $('.deletebtn').on('click',function(evento){
+        evento.preventDefault();
+        const href =$(this).attr('href');
+        console.log(href);
+        const yes= confirm('Are you sure to delete your message?');
+        if (yes){
+            window.location= href
+        };
+    })
+
+    $( '#editar' ).on('click',function(evento) {
+        evento.preventDefault();
+        $( ".mostrar" ).fadeIn();
+        $( "#ocultar" ).fadeOut();
+
+    
+    });
+
+    
+
+</script>
+
+{% endblock %}
+
+

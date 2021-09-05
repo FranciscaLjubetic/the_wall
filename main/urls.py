@@ -9,5 +9,6 @@ urlpatterns = [
     path('makepost', views.makepost),
     path('comment', views.comment),
     path('delete/<nam>', views.delete),
-    path('edit/<nom>', views.edit),
+    path( 'deletecomment/<nom>', views.deletecomment),
+    path('edit/<nam>', views.edit),
 ]
