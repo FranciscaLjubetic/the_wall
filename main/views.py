@@ -145,11 +145,11 @@ def deletecomment(request, nom):
 def edit(request, nam):
     editmsn = textmessages.objects.get(id= nam) 
     if 'new' in request.POST:
-        new = request.POST['new']
+        newo = request.POST['new']
     else:
-        new = editmsn.message
+        newo = editmsn.message
         
-    editmsn.message = new
+    editmsn.message = newo
     #aqui no hago create, porque lo que necesito es sobreescribir algo que ya existe
     try:
         editmsn.save()

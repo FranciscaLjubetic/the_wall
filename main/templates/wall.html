@@ -5,7 +5,7 @@
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <div class="container p-1" style="min-height: 700px;">
-    <div id="furm" class="offset-1 col-10 border mt-1" style="border-radius: 15px;">
+    <div id="furm" class="offset-1 col-10 border border-warning mt-1" style="border-radius: 15px;">
             <form method="POST" action="/makepost">
                 {% csrf_token %}
                 <div class="row p-1">
@@ -30,7 +30,7 @@
                         <div id="cajacomments" class="border bg-white mb-4">
                             <div class="row text-dark m-3">
                                 <p><img src="{{msn.user.avatar}}" alt=""class="me-4" style="display: inline;"><span class="text-dark fw-bolder"> {{msn.user.name}}, {{msn.user.created_at}} said:</span></p>
-                                <p  id="ocultar" class="pb-0 mb-0">{{msn.message}}</p>
+                                <p  id="ocultar" class="mx-auto">{{msn.message}}</p>
                                 <form action="/edit/{{msn.id}}" method="POST">
                                     {% csrf_token %}
                                     <textarea name="new" cols="40" rows="1"  style="display: none" class="mostrar border border-warning form-control input-index mx-auto">{{msn.message}}</textarea>
@@ -86,8 +86,8 @@
 
     $( '#editar' ).on('click',function(evento) {
         evento.preventDefault();
-        $( ".mostrar" ).fadeIn();
-        $( "#ocultar" ).fadeOut();
+        $( ".mostrar" ).show();
+        $( "#ocultar" ).hide();
 
     
     });
