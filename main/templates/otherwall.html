@@ -5,38 +5,49 @@
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <div class="container p-4" style="min-height: 600px;">
-    <form id="furm" class="offset-1 col-10 border mt-3" method="POST" action="/makepost">
-        {% csrf_token %}
-        <div class="row p-2">
-            <div class="offset-1 col-10">
-            <h4 class="p-0 mb-4 display-5 mt-3 text-center fw-bolder">THE WALL</h4>
+    <div  class="offset-1 col-10 border border-warning mt-1" style="border-radius: 15px;">
+        <div id="furi"  class="card" style="border-radius: 15px;">
+            
+            {% csrf_token %}
+            <div class="row p-2">
+                <div class="offset-1 col-10">
+                <h3 class="p-0 mb-4 mt-3 text-white fw-bolder text-center">THE WALL</h3>
+                </div>
             </div>
-        </div>
-        <div class="row ps-2">
-            <div class="offset-1 col-10">
-                <h5 class="ms-2 mb-1">Make a Post</h5>
-                <textarea id="message" name="message" cols="55" rows="1" class="form-control input-index mx-auto">
-                </textarea>
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="offset-1 col-10">
-                <button type="submit" class="btn text-white border border-white" required>Create</button>
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="offset-1 col-10 mt-4 mb-4" style="min-height: 100px;">
-                <h5 class="ms-2 mb-1 ">Recent Posts</h5>
-                <div class="border border-white mb-4" style="min-height: 100px; border-radius: 8px;">
-                    <!--<div class="text-white">    
-                        {% for message in messages %}    
-                        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>    
+            <div class="row p-2">
+                <div class="offset-1 col-10 mt-4 mb-4" style="min-height: 100px;">
+                    <h5 class="ms-2 mb-1 ">Recent Posts (just to read)</h5>
+                    <div class="mb-4 p-2" >
+                        <div class="border border-muted" style="overflow-y: scroll; height: 300px; border-radius: 7px;">    
+                            {% for msn in Messages %}
+                            <div id="cajacoment" class="border mb-4 bg-white">
+                                <div class="row text-dark m-3">
+                                    <p><img src="{{msn.user.avatar}}" alt=""class="me-4" style="display: inline;"><span class="text-dark fw-bolder"> {{msn.user.name}}, {{msn.user.created_at}} said:</span></p>
+                                    <p  id="ocultar" class="editar mx-auto">{{msn.message}}</p>
+                                </div>
+                                
+                                <div class="ms-1  mt-2">
+                                    <h6 class="ms-4">All comments</h6>
+                                    <ul> 
+                                        {% for com in msn.comments.all %}
+                                        <li class="ms-4">
+                                            <span class="text-secondary"><img src="{{msn.user.avatar}}" alt=""class="me-2" style="display: inline;">{{com.user.name}}, {{com.user.created_at}}: </span> <span> {{com.comment}}</span>
+                                        </li>
+                                        {% empty%}
+                                        <li>no comments yet</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
                         {% endfor %}
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>
-    </form>
+    
+    </div>
+
+    
 </div>
 <script>
     $("#network_input").on("change", function () {

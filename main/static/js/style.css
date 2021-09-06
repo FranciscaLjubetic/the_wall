@@ -8,10 +8,11 @@ body {
     background: linear-gradient(79deg, rgba(249,244,94,0.9528186274509804) 0%, rgba(245,255,0,0.5326505602240896) 50%, rgba(242,242,8,0.8099614845938375) 100%);
 }
 
-#furm{
+#furm, #furi {
     background: rgb(249,244,94);
     background: linear-gradient(79deg, rgba(249, 244, 94, 0.795) 0%, rgb(235, 240, 85) 50%, rgba(247, 247, 55, 0.699) 100%);
 }
+
 
 
 .border {
