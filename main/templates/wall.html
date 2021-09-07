@@ -30,15 +30,17 @@
                         <div id="cajacomments" class="border bg-white mb-4">
                             <div class="row text-dark m-3">
                                 <p><img src="{{msn.user.avatar}}" alt=""class="me-4" style="display: inline;"><span class="text-dark fw-bolder"> {{msn.user.name}}, {{msn.user.created_at}} said:</span></p>
-                                <p  id="ocultar" class="editar mx-auto">{{msn.message}}</p>
+                                <p  id="" class="ocultar mx-auto">{{msn.message}}</p>
                                 <form action="/edit/{{msn.id}}" method="POST">
                                     {% csrf_token %}
                                     <textarea name="new" cols="40" rows="1"  style="display: none" class="mostrar border border-warning form-control input-index mx-auto">{{msn.message}}</textarea>
                                     <input type="submit" class="mostrar btn text-warning bg-white border border-warning fw-bolder mt-1 ps-3 pe-3 pt-1 pb-1 pb-0" style="display: none" required>
                                 </form>
                                 <p class="me-2 mt-0"> 
-                                    <a  id="" class="editar me-2" href="/edit/{{msn.id}}">&#128397</a> 
-                                    <a class="deletebtn" href="/delete/{{msn.id}}">&#128701;</a>
+                                    <a  id="" class="editar me-2" href="/edit/{{msn.id}}">&#128397;</a> 
+                                    {% if msn.user.id == request.session.user.id %}
+                                        <a class="deletebtn" href="/delete/{{msn.id}}">&#128701;</a>
+                                    {% endif %}
                                 </p>
                             </div>
                             <div class="row ps-3 pe-3">
@@ -85,8 +87,10 @@
 
     $( '.editar' ).on('click',function(evento) {
         evento.preventDefault();
-        $( ".mostrar" ).show();
-        $( "#ocultar" ).hide();
+
+        const abuelo = $(this).parent().parent();
+        abuelo.find( ".mostrar" ).show();
+        abuelo.find( ".ocultar" ).hide();
 
     
     });
