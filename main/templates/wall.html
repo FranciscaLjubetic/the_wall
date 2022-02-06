@@ -4,8 +4,8 @@
 
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<div class="container p-1" style="min-height: 700px;">
-    <div id="furm" class="col mt-1 mx-auto" style="border-radius: 15px; width: 85vw;">
+<div class="container p-1" style="min-height: 95vh;">
+    <div id="furm" class="col mt-1 mx-auto p-4" style="border-radius: 15px; width: 85vw; height:89vh;">
             <form method="POST" action="/makepost">
                 {% csrf_token %}
                 <div class="row p-1">
@@ -13,21 +13,21 @@
                     <h3 class="p-0 mb-3 mt-2 text-warning text-center fw-bolder">THE WALL</h3>
                     </div>
                 </div>
-                <div class="row ps-2">
-                    <div class="offset-1 col-10">
-                        <h6 class="ms-0 mb-1 fw-bolder">Make a Post</h6>
+                <div class="row">
+                    <div class="col my-auto">
+                        <h6 class="ms-0 mb-0 fw-bolder">Make a Post</h6>
                         <textarea id="mensaje" name="mensaje" cols="55" rows="2" class="form-control input-index mx-auto">
                         </textarea>
-                        <button type="submit" class="btn text-white fw-bolder bg-warning border border-white mt-1 ms-0 ps-3 pe-3 pt-1 pb-1" required>post</button>
+                        <button type="submit" class="btn text-white fw-bolder bg-warning border border-white mt-1 ms-0 pt-1 pb-1" required>post</button>
                     </div>
                 </div>    
             </form>
-            <div class="offset-1 col-10 mt-4 mb-4" style="min-height: 100px; border-radius: 8px;">
-                <h6 class="ms-2 mb-0 fw-bolder p-0">Recent Posts</h6>
-                <div class="mb-4 p-2" >
-                    <div class="border border-muted" style="overflow-y: scroll; height: 32vh; border-radius: 7px;">    
+            <div class="col my-auto" style="border-radius: 8px;">
+                <h6 class="mt-4 mb-1 fw-bolder p-0">Recent Posts</h6>
+                <div>
+                    <div class="border border-muted" style="overflow-y: scroll; height: 44vh; border-radius: 7px;">    
                         {% for msn in Messages %}
-                        <div id="cajacomments" class="border bg-white mb-4">
+                        <div id="cajacomments" class="border bg-white">
                             <div class="row text-dark m-3">
                                 <p><img src="{{msn.user.avatar}}" alt=""class="me-4" style="display: inline;"><span class="text-dark fw-bolder"> {{msn.user.name}}, {{msn.user.created_at}} said:</span></p>
                                 <p  id="" class="ocultar mx-auto">{{msn.message}}</p>
