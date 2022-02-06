@@ -5,12 +5,12 @@
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <div class="container p-1" style="min-height: 700px;">
-    <div id="furm" class="offset-1 col-10 mt-1" style="border-radius: 15px;">
+    <div id="furm" class="col mt-1 mx-auto" style="border-radius: 15px; width: 85vw;">
             <form method="POST" action="/makepost">
                 {% csrf_token %}
                 <div class="row p-1">
                     <div class="offset-1 col-10 pt-1">
-                    <h3 class="p-0 mb-3 mt-2 text-white text-center fw-bolder">THE WALL</h3>
+                    <h3 class="p-0 mb-3 mt-2 text-warning text-center fw-bolder">THE WALL</h3>
                     </div>
                 </div>
                 <div class="row ps-2">
