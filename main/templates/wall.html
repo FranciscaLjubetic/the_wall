@@ -5,7 +5,7 @@
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <div class="container p-1" style="min-height: 700px;">
-    <div id="furm" class="offset-1 col-10 border border-warning mt-1" style="border-radius: 15px;">
+    <div id="furm" class="offset-1 col-10 mt-1" style="border-radius: 15px;">
             <form method="POST" action="/makepost">
                 {% csrf_token %}
                 <div class="row p-1">
@@ -25,7 +25,7 @@
             <div class="offset-1 col-10 mt-4 mb-4" style="min-height: 100px; border-radius: 8px;">
                 <h6 class="ms-2 mb-0 fw-bolder p-0">Recent Posts</h6>
                 <div class="mb-4 p-2" >
-                    <div class="border border-muted" style="overflow-y: scroll; height: 300px; border-radius: 7px;">    
+                    <div class="border border-muted" style="overflow-y: scroll; height: 32vh; border-radius: 7px;">    
                         {% for msn in Messages %}
                         <div id="cajacomments" class="border bg-white mb-4">
                             <div class="row text-dark m-3">

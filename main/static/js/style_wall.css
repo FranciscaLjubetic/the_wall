@@ -11,14 +11,16 @@ body {
 #furm, #furi {
     background: rgb(249,244,94);
     background: linear-gradient(79deg, rgba(249, 244, 94, 0.795) 0%, rgb(235, 240, 85) 50%, rgba(247, 247, 55, 0.699) 100%);
+    padding: 16px;
+    height: 85vh;
 }
 
 
 
-.border {
+/* .border {
     border-color:  rgba(250, 248, 250, 0);
     border-width: 1px;
-}
+} */
 
 a {
     text-decoration: none;

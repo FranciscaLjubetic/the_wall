@@ -5,7 +5,7 @@
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <div class="container p-4" style="min-height: 600px;">
-    <div  class="offset-1 col-10 border border-warning mt-1" style="border-radius: 15px;">
+    <div  class="offset-1 col-10 mt-1" style="border-radius: 15px;">
         <div id="furi"  class="card" style="border-radius: 15px;">
             
             {% csrf_token %}
@@ -18,7 +18,7 @@
                 <div class="offset-1 col-10 mt-4 mb-4" style="min-height: 100px;">
                     <h5 class="ms-2 mb-1 ">Recent Posts (just to read)</h5>
                     <div class="mb-4 p-2" >
-                        <div class="border border-muted" style="overflow-y: scroll; height: 300px; border-radius: 7px;">    
+                        <div class="border border-muted" style="overflow-y: scroll; height: 32vh; border-radius: 7px;">    
                             {% for msn in Messages %}
                             <div id="cajacoment" class="border mb-4 bg-white">
                                 <div class="row text-dark m-3">

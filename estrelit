@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block titulo %}INDEX USUARIO{% endblock %}
+
+{% block contenido %}
+<div class="row">
+  <div class="col-7">
+    <h3>Revisiónes de Libros</h3>
+
+    <div class="card ma-4">
+      <div class="card-body">
+        <h5 class="card-title">Cien años de soledad</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Rating: 3.4</h6>
+        <p class="card-text"> <a href="#">Nicole</a> says: <i>¿Es necesario que lo diga? Lo amo!</i></p>
+        <p><i>Sábado 4 de Septiembre, 2021</i></p>
+      </div>
+    </div>
+
+    <div class="card ma-4">
+      <div class="card-body">
+        <h5 class="card-title">Cien años de soledad</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Rating: 3.4</h6>
+        <p class="card-text"> <a href="#">Nicole</a> says: <i>¿Es necesario que lo diga? Lo amo!</i></p>
+        <p><i>Sábado 4 de Septiembre, 2021</i></p>
+      </div>
+    </div>
+
+    <div class="card ma-4">
+      <div class="card-body">
+        <h5 class="card-title">Cien años de soledad</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Rating: 3.4</h6>
+        <p class="card-text"> <a href="#">Nicole</a> says: <i>¿Es necesario que lo diga? Lo amo!</i></p>
+        <p><i>Sábado 4 de Septiembre, 2021</i></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-5">
+    <h3>Otras Revisiones</h3>
+    <ul class="list-group">
+      <li class="list-group-item"><a href="#">Papelucho Explorador</a></li>
+      <li class="list-group-item"><a href="#">Papelucho y mi Hna Ji</a></li>
+      <li class="list-group-item"><a href="#">El Marciano</a></li>
+      <li class="list-group-item">
+        <input type="number" name="stars" id="mystars">
+        
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block libreria %}
+<script>
+  function input2stars(input_id) {
+    $("<style type='text/css'> .star { letter-spacing: 0; padding: 0.1rem; margin-right: -4px; } .hover{ background-color: burlywood;}  .yellow { color: yellow !important; } </style>").appendTo("head");
+
+    const input = $(`#${input_id}`);
+    input.hide();
+    
+    input.parent().append(`
+      <div id="${input_id}-stars">
+        <span class="material-icons text-secondary star" data-star="1">star</span>
+        <span class="material-icons text-secondary star" data-star="2">star</span>
+        <span class="material-icons text-secondary star" data-star="3">star</span>
+        <span class="material-icons text-secondary star" data-star="4">star</span>
+        <span class="material-icons text-secondary star" data-star="5">star</span>
+      </div>
+    `);
+    $('.star').hover(
+      function () {
+        const target = $(this);
+        const star_num = parseInt(target.data('star'));
+        const parent = target.parent();
+
+        for (let i=1; i <= star_num; ++i) {
+          parent.find(`.star[data-star="${i}"]`).addClass('hover');
+        }
+      },
+      function () {
+        $(this).parent().children().removeClass('hover')
+      }
+    )
+
+    $('.star').on('click', function() {
+      const star_num = parseInt($(this).data('star'));
+      const parent = $(this).parent();
+
+      for (let i=1; i <= star_num; ++i) {
+        parent.find(`.star[data-star="${i}"]`).addClass('yellow');
+      }
+      for (let i=star_num+1; i<=5; ++i) {
+        parent.find(`.star[data-star="${i}"]`).removeClass('yellow');
+      }
+
+      input.val(star_num);
+    });
+  }
+</script>
+{% endblock %}
